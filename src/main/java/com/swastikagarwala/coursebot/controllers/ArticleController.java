@@ -2,6 +2,7 @@ package com.swastikagarwala.coursebot.controllers;
 
 import com.swastikagarwala.coursebot.models.Article;
 import com.swastikagarwala.coursebot.services.ArticleService;
+import com.swastikagarwala.coursebot.services.OpenAIService;
 import com.swastikagarwala.coursebot.services.ScraperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,6 +23,9 @@ public class ArticleController {
 
     @Autowired
     private ScraperService scraperService;
+
+    @Autowired
+    private OpenAIService openAIService;
 
     @PostMapping
     public ResponseEntity<?> createArticle(@RequestBody String link_url) {
@@ -38,8 +43,11 @@ public class ArticleController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server Error");
         }
 
+        String summary = openAIService.getSummary(articleContent);
+        Article article = new Article(link_url, summary, LocalDate.now());
 
+        articleService.saveArticle(article);
 
-        return null;
+        return ResponseEntity.status(HttpStatus.CREATED).body(article);
     }
 }

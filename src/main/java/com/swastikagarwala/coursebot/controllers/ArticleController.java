@@ -46,8 +46,12 @@ public class ArticleController {
         String summary = openAIService.getSummary(articleContent);
         Article article = new Article(link_url, summary, LocalDate.now());
 
-        articleService.saveArticle(article);
+        return ResponseEntity.status(HttpStatus.CREATED).body(articleService.saveArticle(article));
+    }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(article);
+    @GetMapping
+    public ResponseEntity<?> getAllArticles() {
+        List<Article> articles = articleService.getAllArticles();
+        return ResponseEntity.status(HttpStatus.OK).body(articles);
     }
 }

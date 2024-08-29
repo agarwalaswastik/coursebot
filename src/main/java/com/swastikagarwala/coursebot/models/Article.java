@@ -60,4 +60,12 @@ public class Article {
     public void setUpdated(LocalDate updated) {
         this.updated = updated;
     }
+
+    @Override
+    public String toString() {
+        return "{ " +
+                "articleId=" + articleId +
+                ", summary='" + summary + '\'' +
+                " }\n";
+    }
 }

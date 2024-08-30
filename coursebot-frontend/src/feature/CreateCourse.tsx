@@ -35,8 +35,8 @@ export default function CreateCourse() {
                    className="text-3xl hover:cursor-pointer px-4 py-2 border-2 border-emerald-400 rounded-xl w-fit text-emerald-400 transition-colors hover:bg-emerald-400 hover:text-[#222222]"
                    disabled={isLoading}
             />
+            {isLoading && <p className="text-slate-200">Loading...</p>}
             <section className="grid gap-6 m-8 md:grid-cols-2">
-                {isLoading && <p className="text-slate-200">Loading...</p>}
                 {data.map(elem => {
                     return <Article key={elem.articleId} {...elem}/>;
                 })}

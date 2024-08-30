@@ -30,11 +30,13 @@ export default function ViewArticles() {
     }, []);
 
     return (
-        <section className="grid gap-6 m-8 md:grid-cols-2">
+        <>
             {isLoading && <p className="text-slate-200">Loading...</p>}
-            {data.map(elem => {
-                return <Article key={elem.articleId} {...elem}/>;
-            })}
-        </section>
+            <section className="grid gap-6 m-8 md:grid-cols-2">
+                {data.map(elem => {
+                    return <Article key={elem.articleId} {...elem}/>;
+                })}
+            </section>
+        </>
     );
 }

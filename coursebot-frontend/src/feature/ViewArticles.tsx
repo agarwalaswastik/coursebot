@@ -7,7 +7,7 @@ export type ArticleAttributes = {
     articleId: number,
     linkUrl: string,
     summary: string,
-    updated: number[]
+    updated: [number, number, number]
 };
 
 export default function ViewArticles() {
@@ -21,8 +21,6 @@ export default function ViewArticles() {
             });
 
             const responseBody = await response.json() as ArticleAttributes[];
-
-            console.log(responseBody);
 
             setIsLoading(false);
             setData(responseBody);

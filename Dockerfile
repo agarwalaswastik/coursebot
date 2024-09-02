@@ -1,5 +1,7 @@
 # Use a base image with JDK
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-alpine
+
+RUN apk update && apk add findutils
 
 # Set the working directory
 WORKDIR /app

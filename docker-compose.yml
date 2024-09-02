@@ -1,0 +1,31 @@
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16
+    env_file:
+      - "src/main/resources/.env"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # Spring Boot Application (Backend)
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - "src/main/resources/.env"
+    depends_on:
+      - db
+
+  # Frontend Application
+  frontend:
+    build: ./coursebot-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
